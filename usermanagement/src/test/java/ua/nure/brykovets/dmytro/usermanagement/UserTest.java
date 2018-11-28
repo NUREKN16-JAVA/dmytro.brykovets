@@ -1,4 +1,4 @@
-package test.java.ua.nure.brykovets.dmytro.usermanagement;
+package ua.nure.brykovets.dmytro.usermanagement;
 
 import main.java.ua.nure.brykovets.dmytro.usermanagement.User;
 

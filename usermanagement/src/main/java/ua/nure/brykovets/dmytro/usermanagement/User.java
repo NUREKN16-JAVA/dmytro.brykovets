@@ -1,4 +1,4 @@
-package main.java.ua.nure.brykovets.dmytro.usermanagement;
+package ua.nure.brykovets.dmytro.usermanagement;
 
 import java.io.Serializable;
 import java.util.Calendar;
