@@ -1,6 +1,6 @@
-package test.java.ua.nure.brykovets.dmytro.usermanagement;
+package ua.nure.brykovets.dmytro.usermanagement;
 
-import main.java.ua.nure.brykovets.dmytro.usermanagement.User;
+import ua.nure.brykovets.dmytro.usermanagement.User;
 
 import org.junit.Before;
 import org.junit.Test;
