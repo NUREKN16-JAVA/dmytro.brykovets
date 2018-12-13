@@ -20,7 +20,7 @@ public class MainAppTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/browse.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }

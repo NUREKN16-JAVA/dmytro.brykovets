@@ -15,17 +15,26 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 
-public class MainController {
+public class BrowseController {
 
-    public GridPane mainGridPane;
+    public GridPane mainPane;
     public TableView usersTable;
     public Button addButton;
     public Button editButton;
     public Button deleteButton;
     public Button detailsButton;
 
-    public MainController() {
+    public BrowseController() {
         Platform.runLater(() -> addButton.requestFocus());
+    }
+
+    @FXML
+    private void showAddUserPane() throws IOException {
+        Parent addUserPane = FXMLLoader.load(getClass().getResource("/view/add_user.fxml"));
+        Platform.runLater(() -> {
+            Stage window = (Stage) mainPane.getScene().getWindow();
+            window.setScene(new Scene(addUserPane));
+        });
     }
 
 }
