@@ -16,7 +16,7 @@ import org.junit.Test;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.base.NodeMatchers.isNotNull;
 
-public class MainAppTest extends ApplicationTest {
+public class BrowseTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -36,8 +36,10 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void shouldAddUser() {
+        // when:
         clickOn("#addButton");
 
+        // than:
         verifyThat("#addUserPane", isNotNull());
     }
 
