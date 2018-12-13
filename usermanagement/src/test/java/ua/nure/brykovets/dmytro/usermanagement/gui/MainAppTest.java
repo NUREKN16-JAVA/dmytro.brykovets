@@ -14,9 +14,9 @@ import org.junit.After;
 import org.junit.Test;
 
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.LabeledMatchers.hasText;
+import static org.testfx.matcher.base.NodeMatchers.isNotNull;
 
-public class MainTest extends ApplicationTest {
+public class MainAppTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -26,8 +26,19 @@ public class MainTest extends ApplicationTest {
     }
 
     @Test
-    public void shouldContainLabel() {
-        verifyThat(".label", hasText("Hello"));
+    public void shouldContainBrowseControls() {
+        verifyThat("#usersTable", isNotNull());
+        verifyThat("#addButton", isNotNull());
+        verifyThat("#editButton", isNotNull());
+        verifyThat("#deleteButton", isNotNull());
+        verifyThat("#detailsButton", isNotNull());
+    }
+
+    @Test
+    public void shouldAddUser() {
+        clickOn("#addButton");
+
+        verifyThat("#addUserPane", isNotNull());
     }
 
     @After
