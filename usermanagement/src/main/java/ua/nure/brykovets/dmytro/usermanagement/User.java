@@ -1,19 +1,19 @@
 package ua.nure.brykovets.dmytro.usermanagement;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 public class User implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, Date dateOfBirth) {
+    public User(Long id, String firstName, String lastName, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,11 +44,11 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -71,15 +71,15 @@ public class User implements Serializable {
      * @return the user's age.
      */
     public int getAge() {
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH);
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        LocalDate now = LocalDate.now();
 
-        calendar.setTime(this.dateOfBirth);
-        int yearOfBirth = calendar.get(Calendar.YEAR);
-        int monthOfBirth = calendar.get(Calendar.MONTH);
-        int dayOfBirth = calendar.get(Calendar.DAY_OF_MONTH);
+        int currentYear = now.getYear();
+        int currentMonth = now.getMonthValue();
+        int currentDay = now.getDayOfMonth();
+
+        int yearOfBirth = this.dateOfBirth.getYear();
+        int monthOfBirth = this.dateOfBirth.getMonthValue();
+        int dayOfBirth = this.dateOfBirth.getDayOfMonth();
 
         int age = currentYear - yearOfBirth;
         if (currentMonth >= monthOfBirth && currentDay >= dayOfBirth) {
