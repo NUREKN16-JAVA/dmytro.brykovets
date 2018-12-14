@@ -12,7 +12,7 @@
           hgap="10" vgap="10"
           xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="ua.nure.brykovets.dmytro.usermanagement.gui.AddUserController"
+          fx:controller="ua.nure.brykovets.dmytro.usermanagement.gui.controller.AddUserController"
           prefHeight="400.0" prefWidth="600.0">
 
     <GridPane hgap="10" vgap="10" alignment="CENTER"
@@ -34,8 +34,8 @@
         <padding>
             <Insets top="10" right="20" bottom="20" left="20"/>
         </padding>
-        <Button fx:id="addButton" text="Add" minWidth="80"/>
-        <Button fx:id="cancelButton" text="Cancel" minWidth="80"/>
+        <Button fx:id="addButton" text="Add" minWidth="80" onAction="#addUser"/>
+        <Button fx:id="cancelButton" text="Cancel" minWidth="80" onAction="#showBrowsePane"/>
     </HBox>
 
 </GridPane>

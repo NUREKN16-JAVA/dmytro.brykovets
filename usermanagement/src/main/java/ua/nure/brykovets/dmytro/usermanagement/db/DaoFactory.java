@@ -26,7 +26,7 @@ public abstract class DaoFactory {
     DaoFactory() {
     }
 
-    public void init(Properties props) {
+    public static void init(Properties props) {
         properties = props;
         instance = null;
     }

@@ -5,6 +5,7 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
@@ -13,26 +14,39 @@
           hgap="10" vgap="10"
           xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="ua.nure.brykovets.dmytro.usermanagement.gui.BrowseController"
+          fx:controller="ua.nure.brykovets.dmytro.usermanagement.gui.controller.BrowseController"
           prefHeight="400.0" prefWidth="600.0">
 
-    <TableView fx:id="usersTable" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"></TableView></columnResizePolicy>
+    <TableView fx:id="usersTable"
+               GridPane.rowIndex="0"
+               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
         <columns>
             <!--<TableColumn text="ID" minWidth="60.0" maxWidth="60.0" />-->
-            <TableColumn text="ID"/>
-            <TableColumn text="First name"/>
-            <TableColumn text="Last name"/>
-            <TableColumn text="Date of birth"/>
+            <TableColumn text="%browse.table.column.id">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="%browse.table.column.firstName">
+                <cellValueFactory>
+                    <PropertyValueFactory property="firstName"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="%browse.table.column.lastName">
+                <cellValueFactory>
+                    <PropertyValueFactory property="lastName"/>
+                </cellValueFactory>
+            </TableColumn>
         </columns>
     </TableView>
 
     <HBox GridPane.rowIndex="1" spacing="20" alignment="CENTER_RIGHT">
         <padding><Insets top="10" right="20" bottom="20" left="20"/></padding>
-        <Button fx:id="addButton" text="Add" minWidth="80" onAction="#showAddUserPane"/>
-        <Button fx:id="editButton" text="Edit" minWidth="80"/>
-        <Button fx:id="deleteButton" text="Delete" minWidth="80"/>
-        <Button fx:id="detailsButton" text="Details" minWidth="80"/>
+        <Button fx:id="addButton" text="%browse.button.add" minWidth="80" onAction="#showAddUserPane"/>
+        <Button fx:id="editButton" text="%browse.button.edit" minWidth="80"/>
+        <Button fx:id="deleteButton" text="%browse.button.delete" minWidth="80" style="-fx-background-color: red; -fx-text-fill: white"/>
+        <Button fx:id="detailsButton" text="%browse.button.details" minWidth="80"/>
     </HBox>
 
 </GridPane>

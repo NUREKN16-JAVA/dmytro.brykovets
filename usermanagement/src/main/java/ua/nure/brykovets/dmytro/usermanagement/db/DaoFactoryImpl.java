@@ -5,10 +5,10 @@ public class DaoFactoryImpl extends DaoFactory {
     @Override
     public UserDao getUserDao() {
         try {
-            Class userDaoClass = Class.forName(this.properties.getProperty(USER_DAO_CLASS_KEY));
+            Class userDaoClass = Class.forName(properties.getProperty(USER_DAO_CLASS_KEY));
 
             UserDao userDao = (UserDao) userDaoClass.newInstance();
-            userDao.setConnectionFactory(this.getConnectionFactory());
+            userDao.setConnectionFactory(getConnectionFactory());
 
             return userDao;
         } catch (Exception e) {
