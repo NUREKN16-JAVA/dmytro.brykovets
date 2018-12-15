@@ -19,13 +19,13 @@
               GridPane.rowIndex="0"
               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
 
-        <Label text="First name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Label text="%user.firstName" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-        <Label text="Last name" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label text="%user.lastName" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Date of birth" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label text="%user.dateOfBirth" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <DatePicker fx:id="dateOfBirthPicker" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
     </GridPane>

@@ -58,7 +58,7 @@ public class BrowseController {
 
     @FXML
     private void showAddUserPane() throws IOException {
-        Parent addUserPane = FXMLLoader.load(getClass().getResource("/view/add_user.fxml"));
+        Parent addUserPane = FXMLLoader.load(getClass().getResource("/view/add_user.fxml"), bundle);
         Platform.runLater(() -> {
             Stage window = (Stage) mainPane.getScene().getWindow();
             window.setScene(new Scene(addUserPane));
@@ -67,7 +67,7 @@ public class BrowseController {
 
     @FXML
     private void showEditUserPane() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/edit_user.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/edit_user.fxml"), bundle);
         Parent editUserPane = loader.load();
         EditUserController controller = loader.getController();
 
@@ -83,7 +83,7 @@ public class BrowseController {
 
     @FXML
     private void showUserDetailsPane() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/user_details.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/user_details.fxml"), bundle);
         Parent userDetailsPane = loader.load();
         UserDetailsController controller = loader.getController();
 
