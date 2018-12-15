@@ -11,6 +11,7 @@ import org.dbunit.dataset.xml.XmlDataSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -21,12 +22,12 @@ public class HsqlUserDaoTest extends DatabaseTestCase {
     private static final Long EXISTING_ID = 2L;
     private static final String EXISTING_FIRST_NAME = "John";
     private static final String EXISTING_LAST_NAME = "Doe";
-    private static final Date EXISTING_DATE_OF_BIRTH = new Date(72, 5, 8);
+    private static final LocalDate EXISTING_DATE_OF_BIRTH = LocalDate.of(1972, 6, 8);
 
     private static final Long NEW_ID = 2L;
     private static final String NEW_FIRST_NAME = "Quentin";
     private static final String NEW_LAST_NAME = "Tarantino";
-    private static final Date NEW_DATE_OF_BIRTH = new Date(63, 2, 27);
+    private static final LocalDate NEW_DATE_OF_BIRTH = LocalDate.of(1963, 3, 27);
 
     private HsqlUserDao dao;
     private ConnectionFactory connectionFactory;
@@ -63,7 +64,7 @@ public class HsqlUserDaoTest extends DatabaseTestCase {
         User user = new User();
         user.setFirstName("Dmytro");
         user.setLastName("Brykovets");
-        user.setDateOfBirth(new Date());
+        user.setDateOfBirth(LocalDate.now());
         assertNull(user.getId());
 
         User createdUser = this.dao.create(user);

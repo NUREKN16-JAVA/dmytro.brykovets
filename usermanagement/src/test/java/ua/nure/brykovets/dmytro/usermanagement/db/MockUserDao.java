@@ -46,4 +46,8 @@ public class MockUserDao implements UserDao {
         Long id = user.getId();
         users.remove(id);
     }
+
+    public void reset() {
+        users.clear();
+    }
 }
