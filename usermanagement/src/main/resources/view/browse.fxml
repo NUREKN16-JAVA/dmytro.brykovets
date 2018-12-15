@@ -43,10 +43,18 @@
 
     <HBox GridPane.rowIndex="1" spacing="20" alignment="CENTER_RIGHT">
         <padding><Insets top="10" right="20" bottom="20" left="20"/></padding>
-        <Button fx:id="addButton" text="%browse.button.add" minWidth="80" onAction="#showAddUserPane"/>
-        <Button fx:id="editButton" text="%browse.button.edit" minWidth="80"/>
-        <Button fx:id="deleteButton" text="%browse.button.delete" minWidth="80" style="-fx-background-color: red; -fx-text-fill: white"/>
-        <Button fx:id="detailsButton" text="%browse.button.details" minWidth="80"/>
+
+        <Button fx:id="addButton" text="%browse.button.add" minWidth="80" onAction="#showAddUserPane"
+                style="-fx-background-color: rgb(73,156,84); -fx-text-fill: white;"/>
+
+        <Button fx:id="editButton" text="%browse.button.edit" minWidth="80" onAction="#showEditUserPane"
+                style="-fx-background-color: rgb(190,145,23); -fx-text-fill: white;"/>
+
+        <Button fx:id="detailsButton" text="%browse.button.details" minWidth="80" onAction="#showUserDetailsPane"
+                style="-fx-background-color: rgb(53,146,196); -fx-text-fill: white;"/>
+
+        <Button fx:id="deleteButton" text="%browse.button.delete" minWidth="80" onAction="#deleteUser"
+                style="-fx-background-color: rgb(199,84,80); -fx-text-fill: white;"/>
     </HBox>
 
 </GridPane>
