@@ -1,6 +1,5 @@
 package ua.nure.brykovets.dmytro.usermanagement.gui;
 
-import com.mockobjects.dynamic.AnyConstraintMatcher;
 import com.mockobjects.dynamic.Mock;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import ua.nure.brykovets.dmytro.usermanagement.User;
 import ua.nure.brykovets.dmytro.usermanagement.db.DaoFactory;
 import ua.nure.brykovets.dmytro.usermanagement.db.MockDaoFactory;
-import ua.nure.brykovets.dmytro.usermanagement.db.UserDao;
 import ua.nure.brykovets.dmytro.usermanagement.util.UTF8Control;
 
 import java.time.LocalDate;
@@ -90,9 +88,9 @@ public class BrowseTest extends ApplicationTest {
         ObservableList<TableColumn> columns = table.getColumns();
 
         assertEquals(COLUMNS_COUNT, columns.size());
-        assertEquals(bundle.getString("browse.table.column.id"), columns.get(0).getText());
-        assertEquals(bundle.getString("browse.table.column.firstName"), columns.get(1).getText());
-        assertEquals(bundle.getString("browse.table.column.lastName"), columns.get(2).getText());
+        assertEquals(bundle.getString("user.id"), columns.get(0).getText());
+        assertEquals(bundle.getString("user.firstName"), columns.get(1).getText());
+        assertEquals(bundle.getString("user.lastName"), columns.get(2).getText());
     }
 
     @Test

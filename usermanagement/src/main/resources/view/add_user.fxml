@@ -34,8 +34,8 @@
         <padding>
             <Insets top="10" right="20" bottom="20" left="20"/>
         </padding>
-        <Button fx:id="confirmButton" text="Add" minWidth="80" onAction="#addUser"/>
-        <Button fx:id="cancelButton" text="Cancel" minWidth="80" onAction="#showBrowsePane"/>
+        <Button fx:id="confirmButton" text="%button.add" minWidth="80" onAction="#addUser"/>
+        <Button fx:id="cancelButton" text="%button.cancel" minWidth="80" onAction="#showBrowsePane"/>
     </HBox>
 
 </GridPane>

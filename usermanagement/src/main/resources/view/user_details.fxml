@@ -19,13 +19,13 @@
               GridPane.rowIndex="0"
               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
 
-        <Label text="First name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Label text="%user.firstName" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <Label fx:id="firstNameLabel" style="-fx-font-size: 24px" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-        <Label text="Last name" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label text="%user.lastName" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <Label fx:id="lastNameLabel" style="-fx-font-size: 24px" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Date of birth" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label text="%user.dateOfBirth" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <Label fx:id="dateOfBirthLabel" style="-fx-font-size: 16px" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
     </GridPane>
@@ -34,7 +34,7 @@
         <padding>
             <Insets top="10" right="20" bottom="20" left="20"/>
         </padding>
-        <Button text="Ok" minWidth="80" onAction="#showBrowsePane"/>
+        <Button text="%button.ok" minWidth="80" onAction="#showBrowsePane"/>
     </HBox>
 
 </GridPane>
