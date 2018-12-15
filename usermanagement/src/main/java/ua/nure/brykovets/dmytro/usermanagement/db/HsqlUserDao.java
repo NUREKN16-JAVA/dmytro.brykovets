@@ -3,6 +3,7 @@ package ua.nure.brykovets.dmytro.usermanagement.db;
 import ua.nure.brykovets.dmytro.usermanagement.User;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -38,7 +39,7 @@ class HsqlUserDao implements UserDao {
             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
-            statement.setDate(3, new Date(user.getDateOfBirth().getTime()));
+            statement.setDate(3, new Date(user.getDateOfBirth().toEpochDay()));
 
             int n = statement.executeUpdate();
             if (n != 1) {
@@ -77,7 +78,7 @@ class HsqlUserDao implements UserDao {
                 Long recordId = resultSet.getLong("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
-                Date dateOfBirth = resultSet.getDate("date_of_birth");
+                LocalDate dateOfBirth = resultSet.getDate("date_of_birth").toLocalDate();
 
                 if (resultSet.next()) {
                     throw new DatabaseException("There are more than one user with specified id in the database.");
@@ -108,7 +109,7 @@ class HsqlUserDao implements UserDao {
                 Long id = resultSet.getLong("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
-                Date dateOfBirth = resultSet.getDate("date_of_birth");
+                LocalDate dateOfBirth = resultSet.getDate("date_of_birth").toLocalDate();
 
                 User user = new User(id, firstName, lastName, dateOfBirth);
                 result.add(user);
@@ -129,7 +130,7 @@ class HsqlUserDao implements UserDao {
             PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
-            statement.setDate(3, new Date(user.getDateOfBirth().getTime()));
+            statement.setDate(3, Date.valueOf(user.getDateOfBirth()));
             statement.setLong(4, user.getId());
 
             int n = statement.executeUpdate();
