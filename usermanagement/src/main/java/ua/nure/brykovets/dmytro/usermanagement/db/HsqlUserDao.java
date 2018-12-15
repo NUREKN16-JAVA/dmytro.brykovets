@@ -84,6 +84,10 @@ class HsqlUserDao implements UserDao {
                     throw new DatabaseException("There are more than one user with specified id in the database.");
                 }
 
+                resultSet.close();
+                statement.close();
+                connection.close();
+
                 return new User(recordId, firstName, lastName, dateOfBirth);
 
             }
@@ -115,6 +119,10 @@ class HsqlUserDao implements UserDao {
                 result.add(user);
             }
 
+            resultSet.close();
+            statement.close();
+            connection.close();
+
             return result;
 
         } catch (SQLException e) {
@@ -139,6 +147,9 @@ class HsqlUserDao implements UserDao {
                 throw new DatabaseException("Num of updated rows: " + n);
             }
 
+            statement.close();
+            connection.close();
+
         } catch (SQLException e) {
             throw new DatabaseException(e);
         }
@@ -157,6 +168,9 @@ class HsqlUserDao implements UserDao {
             if (n != 1) {
                 throw new DatabaseException("Num of deleted rows: " + n);
             }
+
+            statement.close();
+            connection.close();
 
         } catch (SQLException e) {
             throw new DatabaseException(e);
