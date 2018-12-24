@@ -39,7 +39,7 @@ public class PostgresUserDao implements UserDao {
             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
-            statement.setDate(3, new Date(user.getDateOfBirth().toEpochDay()));
+            statement.setDate(3, Date.valueOf(user.getDateOfBirth()));
 
             int n = statement.executeUpdate();
             if (n != 1) {
