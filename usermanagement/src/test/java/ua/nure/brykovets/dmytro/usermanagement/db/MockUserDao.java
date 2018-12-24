@@ -42,8 +42,7 @@ public class MockUserDao implements UserDao {
     }
 
     @Override
-    public void delete(User user) throws DatabaseException {
-        Long id = user.getId();
+    public void delete(Long id) throws DatabaseException {
         users.remove(id);
     }
 

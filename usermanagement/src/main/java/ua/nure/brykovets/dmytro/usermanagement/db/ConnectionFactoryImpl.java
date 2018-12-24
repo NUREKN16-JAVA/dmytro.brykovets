@@ -2,7 +2,6 @@ package ua.nure.brykovets.dmytro.usermanagement.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactoryImpl implements ConnectionFactory {
@@ -31,13 +30,8 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 
         try {
             Class.forName(this.driver);
-        } catch (ClassNotFoundException e) {
-            throw new DatabaseException(e);
-        }
-
-        try {
             return DriverManager.getConnection(this.url, this.user, this.password);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new DatabaseException(e);
         }
     }

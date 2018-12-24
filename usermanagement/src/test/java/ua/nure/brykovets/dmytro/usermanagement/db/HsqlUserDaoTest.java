@@ -135,8 +135,7 @@ public class HsqlUserDaoTest extends DatabaseTestCase {
     @Test
     public void testDelete() {
         try {
-            User user = new User(EXISTING_ID, EXISTING_FIRST_NAME, EXISTING_LAST_NAME, EXISTING_DATE_OF_BIRTH);
-            this.dao.delete(user);
+            this.dao.delete(EXISTING_ID);
 
             IDataSet databaseDataSet = this.getConnection().createDataSet();
             ITable actualTable = databaseDataSet.getTable("users");

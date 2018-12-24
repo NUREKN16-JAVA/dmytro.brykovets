@@ -1,13 +1,11 @@
 package ua.nure.brykovets.dmytro.usermanagement.web;
 
 import ua.nure.brykovets.dmytro.usermanagement.User;
-import ua.nure.brykovets.dmytro.usermanagement.db.DaoFactory;
-import ua.nure.brykovets.dmytro.usermanagement.db.DatabaseException;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.ValidationException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,17 +13,17 @@ import java.time.format.DateTimeParseException;
 
 abstract class UserServlet extends HttpServlet {
 
-    private String jspTemplatePath;
+    private String jspTemplate;
 
-    public UserServlet() {
+    UserServlet() {
         super();
-        jspTemplatePath = getJspTemplatePath();
+        jspTemplate = getJspTemplate();
     }
 
-    abstract String getJspTemplatePath();
+    abstract String getJspTemplate();
 
     @Override
-    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         if (req.getParameter("okButton") != null) {
             doOk(req, res);
         } else if (req.getParameter("cancelButton") != null) {
@@ -35,29 +33,17 @@ abstract class UserServlet extends HttpServlet {
         }
     }
 
-    void showPage(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher(jspTemplatePath).forward(req, res);
+    protected void showPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.getRequestDispatcher(jspTemplate).forward(req, res);
     }
 
-    void doOk(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        try {
-            User user = getUser(req);
-            DaoFactory.getInstance().getUserDao().update(user);
-            req.getRequestDispatcher("/browse.jsp").forward(req, res);
-        } catch (ValidationException e) {
-            req.setAttribute("error", e.getMessage());
-            showPage(req, res);
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
-        }
+    abstract void doOk(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException;
+
+    protected void doCancel(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.sendRedirect("browse");
     }
 
-    void doCancel(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher("/browse.jsp").forward(req, res);
-    }
-
-    User getUser(ServletRequest req) throws ValidationException {
+    protected User getUser(HttpServletRequest req) throws ValidationException {
 
         String firstName = req.getParameter("firstName");
         if (firstName == null) {

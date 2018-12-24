@@ -21,14 +21,36 @@ public class BrowseServletTest extends MockServletTestCase {
     }
 
     @Test
-    public void browse() {
+    public void shouldReturnUserList() {
+        // given:
         User user = new User(1000L, "Quentin", "Tarantino", LocalDate.parse("1963-03-27"));
         List<User> userList = Collections.singletonList(user);
         getMockUserDao().expectAndReturn("findAll", userList);
-        doGet();
-        Collection<User> userCollection = (Collection<User>) getWebMockObjectFactory().getMockSession().getAttribute("users");
 
+        // when:
+        doGet();
+
+        // then:
+        Collection<User> userCollection = (Collection<User>) getWebMockObjectFactory().getMockSession().getAttribute("users");
         assertNotEquals("Could not find users in session", Collections.emptyList(), userCollection);
         assertSame(userList, userCollection);
+    }
+
+    @Test
+    public void shouldOpenEditUserPage() {
+        // given:
+        User user = new User(1000L, "Quentin", "Tarantino", LocalDate.parse("1963-03-27"));
+        getMockUserDao().expectAndReturn("find", 1000L, user);
+
+        addRequestParameter("editButton", "Edit");
+        addRequestParameter("id", "1000");
+
+        // when:
+        doPost();
+
+        // then:
+        User sessionUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
+        assertNotNull(sessionUser);
+        assertSame(user, sessionUser);
     }
 }

@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-         version="2.4"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
 
     <servlet>
         <servlet-name>BrowseServlet</servlet-name>
         <servlet-class>ua.nure.brykovets.dmytro.usermanagement.web.BrowseServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUserServlet</servlet-name>
+        <servlet-class>ua.nure.brykovets.dmytro.usermanagement.web.AddUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>ua.nure.brykovets.dmytro.usermanagement.web.EditUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetailsServlet</servlet-name>
+        <servlet-class>ua.nure.brykovets.dmytro.usermanagement.web.UserDetailsServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>BrowseServlet</servlet-name>
         <url-pattern>/browse</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUserServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetailsServlet</servlet-name>
+        <url-pattern>/details</url-pattern>
+    </servlet-mapping>
+    
+    <resource-ref>
+        <description>Data Source for Postgres</description>
+        <res-ref-name>jdbc/postgres</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </web-app>
