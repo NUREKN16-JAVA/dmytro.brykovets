@@ -105,7 +105,7 @@ public class BrowseController {
             Optional<ButtonType> result = warningAlert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
-                    dao.delete(selectedUser);
+                    dao.delete(selectedUser.getId());
                     initUsersTable();
                 } catch (DatabaseException e) {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR, e.getMessage());

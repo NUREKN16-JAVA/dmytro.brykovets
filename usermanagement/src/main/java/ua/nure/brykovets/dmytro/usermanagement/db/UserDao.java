@@ -46,5 +46,5 @@ public interface UserDao {
      * Deletes user's record from the database
      * that's matching provided User object id field.
      */
-    void delete(final User user) throws DatabaseException;
+    void delete(final Long id) throws DatabaseException;
 }

@@ -147,12 +147,12 @@ public class PostgresUserDao implements UserDao {
     }
 
     @Override
-    public void delete(User user) throws DatabaseException {
+    public void delete(Long id) throws DatabaseException {
         try {
             Connection connection = this.connectionFactory.createConnection();
 
             PreparedStatement statement = connection.prepareStatement(DELETE_QUERY);
-            statement.setLong(1, user.getId());
+            statement.setLong(1, id);
 
             int n = statement.executeUpdate();
 
