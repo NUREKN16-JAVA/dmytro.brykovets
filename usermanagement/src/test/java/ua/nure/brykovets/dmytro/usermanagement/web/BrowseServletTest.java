@@ -5,6 +5,7 @@ import org.junit.Test;
 import ua.nure.brykovets.dmytro.usermanagement.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -52,5 +53,25 @@ public class BrowseServletTest extends MockServletTestCase {
         User sessionUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
         assertNotNull(sessionUser);
         assertSame(user, sessionUser);
+    }
+
+    @Test
+    public void shouldDeleteUser() {
+        // given:
+        User user = new User(1000L, "Quentin", "Tarantino", LocalDate.parse("1963-03-27"));
+        List<User> userList = Collections.singletonList(user);
+        getMockUserDao().expectAndReturn("findAll", userList);
+        getMockUserDao().expect("delete", 1000L);
+        getMockUserDao().expectAndReturn("findAll", Collections.EMPTY_LIST);
+
+        // when:
+        doGet();
+        addRequestParameter("deleteButton", "Delete");
+        addRequestParameter("id", "1000");
+        doPost();
+
+        // then:
+        Collection<User> userCollection = (Collection<User>) getWebMockObjectFactory().getMockSession().getAttribute("users");
+        assertEquals(0, userCollection.size());
     }
 }
