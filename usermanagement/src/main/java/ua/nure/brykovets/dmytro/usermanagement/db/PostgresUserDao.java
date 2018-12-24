@@ -9,11 +9,11 @@ import java.util.LinkedList;
 
 public class PostgresUserDao implements UserDao {
 
-    private static final String SELECT_ALL_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users";
-    private static final String SELECT_ONE_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE id = (?)";
-    private static final String INSERT_QUERY = "INSERT INTO users (first_name, last_name, date_of_birth) VALUES (?, ?, ?)";
-    private static final String UPDATE_QUERY = "UPDATE users SET first_name = (?), last_name = (?), date_of_birth = (?) WHERE id = (?)";
-    private static final String DELETE_QUERY = "DELETE FROM users WHERE id = (?)";
+    private static final String SELECT_ALL_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users;";
+    private static final String SELECT_ONE_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE id = (?);";
+    private static final String INSERT_QUERY = "INSERT INTO users (first_name, last_name, date_of_birth) VALUES (?, ?, ?) RETURNING id;";
+    private static final String UPDATE_QUERY = "UPDATE users SET first_name = (?), last_name = (?), date_of_birth = (?) WHERE id = (?);";
+    private static final String DELETE_QUERY = "DELETE FROM users WHERE id = (?);";
     private ConnectionFactory connectionFactory;
 
     public PostgresUserDao() {
@@ -41,9 +41,13 @@ public class PostgresUserDao implements UserDao {
             statement.setString(2, user.getLastName());
             statement.setDate(3, Date.valueOf(user.getDateOfBirth()));
 
-            int n = statement.executeUpdate();
-            if (n != 1) {
-                throw new DatabaseException("Num of inserted rows: " + n);
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
+            if (resultSet.next()) {
+                Long id = resultSet.getLong(1);
+                user.setId(id);
+            } else {
+                throw new DatabaseException("Something went wrong when creating a new user on database.");
             }
 
             statement.close();
