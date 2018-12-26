@@ -30,6 +30,13 @@ public interface UserDao {
     User find(final Long id) throws DatabaseException;
 
     /**
+     * Finds a user with specified first name and last name.
+     *
+     * @return user collection
+     */
+    Collection<User> find(final String firstName, final String lastName) throws DatabaseException;
+
+    /**
      * Finds all users in database.
      *
      * @return users collection

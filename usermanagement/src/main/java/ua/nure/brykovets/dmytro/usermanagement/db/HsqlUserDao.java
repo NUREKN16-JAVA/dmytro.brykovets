@@ -4,6 +4,7 @@ import ua.nure.brykovets.dmytro.usermanagement.User;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -11,6 +12,7 @@ class HsqlUserDao implements UserDao {
 
     private static final String SELECT_ALL_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users";
     private static final String SELECT_ONE_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE id = (?)";
+    private static final String SELECT_BY_FIRST_AND_LAST_NAME_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE first_name = (?) AND last_name = (?);";
     private static final String INSERT_QUERY = "INSERT INTO users (first_name, last_name, date_of_birth) VALUES (?, ?, ?)";
     private static final String UPDATE_QUERY = "UPDATE users SET first_name = (?), last_name = (?), date_of_birth = (?) WHERE id = (?)";
     private static final String DELETE_QUERY = "DELETE FROM users WHERE id = (?)";
@@ -93,6 +95,38 @@ class HsqlUserDao implements UserDao {
             }
 
             throw new DatabaseException("User not found.");
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
+        }
+    }
+
+    @Override
+    public Collection<User> find(String firstName, String lastName) throws DatabaseException {
+        try {
+            Connection connection = connectionFactory.createConnection();
+            PreparedStatement statement = connection.prepareStatement(SELECT_BY_FIRST_AND_LAST_NAME_QUERY);
+
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            Collection<User> users = new ArrayList<>();
+            while (resultSet.next()) {
+                Long id = resultSet.getLong(1);
+                String first = resultSet.getString(2);
+                String last = resultSet.getString(3);
+                LocalDate dateOfBirth = resultSet.getDate(4).toLocalDate();
+
+                users.add(new User(id, first, last, dateOfBirth));
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+            return users;
 
         } catch (SQLException e) {
             throw new DatabaseException(e);
