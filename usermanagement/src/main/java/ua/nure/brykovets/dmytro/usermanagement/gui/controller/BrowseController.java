@@ -1,23 +1,45 @@
 package ua.nure.brykovets.dmytro.usermanagement.gui.controller;
 
+import jade.core.AID;
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.core.Runtime;
+import jade.domain.AMSService;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
+import jade.util.Event;
+import jade.util.leap.Properties;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.ControllerException;
+import jade.wrapper.StaleProxyException;
+import jade.wrapper.gateway.JadeGateway;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import ua.nure.brykovets.dmytro.usermanagement.User;
-import ua.nure.brykovets.dmytro.usermanagement.db.*;
+import ua.nure.brykovets.dmytro.usermanagement.agent.RequestServer;
+import ua.nure.brykovets.dmytro.usermanagement.agent.SearchAgent;
+import ua.nure.brykovets.dmytro.usermanagement.agent.SearchException;
+import ua.nure.brykovets.dmytro.usermanagement.agent.SearchRequestBehaviour;
+import ua.nure.brykovets.dmytro.usermanagement.db.DaoFactory;
+import ua.nure.brykovets.dmytro.usermanagement.db.DatabaseException;
+import ua.nure.brykovets.dmytro.usermanagement.db.UserDao;
 import ua.nure.brykovets.dmytro.usermanagement.util.UTF8Control;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,29 +53,31 @@ public class BrowseController {
     public Button deleteButton;
     public Button detailsButton;
 
+    public TextField firstNameSearchField;
+    public TextField lastNameSearchField;
+
+    private static SearchAgent searchAgent;
+    private static ObservableList<User> users;
+
     private ResourceBundle bundle = ResourceBundle.getBundle("strings", Locale.getDefault(), new UTF8Control());
     private UserDao dao = DaoFactory.getInstance().getUserDao();
 
     public BrowseController() {
-        Platform.runLater(() -> {
-            initUsersTable();
+        users = FXCollections.observableArrayList();
 
+        Platform.runLater(() -> {
+            loadAllUsers();
+            usersTable.setItems(users);
             addButton.requestFocus();
         });
     }
 
-    public void initUsersTable() {
-        try {
-            ObservableList<User> users = FXCollections.observableArrayList(dao.findAll());
-            usersTable.setItems(users);
-        } catch (DatabaseException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-            alert.showAndWait();
-        }
+    public static void setSearchAgent(SearchAgent sa) {
+        searchAgent = sa;
     }
 
-    private User getSelectedUser() {
-         return usersTable.getSelectionModel().getSelectedItem();
+    public static void setUsers(Collection<User> users) {
+        BrowseController.users.setAll(users);
     }
 
     @FXML
@@ -106,12 +130,44 @@ public class BrowseController {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
                     dao.delete(selectedUser.getId());
-                    initUsersTable();
+                    loadAllUsers();
                 } catch (DatabaseException e) {
-                    Alert errorAlert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-                    errorAlert.showAndWait();
+                    showErrorAlert(e.getMessage());
                 }
             }
         }
+    }
+
+    private User getSelectedUser() {
+        return usersTable.getSelectionModel().getSelectedItem();
+    }
+
+    public void loadAllUsers() {
+        Platform.runLater(() -> {
+            try {
+                users.setAll(dao.findAll());
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void searchUsers() {
+        String firstName = firstNameSearchField.getText();
+        String lastName = lastNameSearchField.getText();
+        try {
+//            JadeGateway.init(null, new Properties());
+//            DFService.s
+//            JadeGateway.execute(new SearchRequestBehaviour(aids, firstName, lastName));
+            searchAgent.search(firstName, lastName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorAlert(e.getMessage());
+        }
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message);
+        alert.showAndWait();
     }
 }

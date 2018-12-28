@@ -14,7 +14,7 @@ public class PostgresUserDao implements UserDao {
 
     private static final String SELECT_ALL_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users;";
     private static final String SELECT_BY_ID_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE id = (?);";
-    private static final String SELECT_BY_FIRST_AND_LAST_NAME_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE first_name = (?) AND last_name = (?);";
+    private static final String SELECT_BY_FIRST_AND_LAST_NAME_QUERY = "SELECT id, first_name, last_name, date_of_birth FROM users WHERE first_name ~ (?) AND last_name ~ (?);";
     private static final String INSERT_QUERY = "INSERT INTO users (first_name, last_name, date_of_birth) VALUES (?, ?, ?) RETURNING id;";
     private static final String UPDATE_QUERY = "UPDATE users SET first_name = (?), last_name = (?), date_of_birth = (?) WHERE id = (?);";
     private static final String DELETE_QUERY = "DELETE FROM users WHERE id = (?);";

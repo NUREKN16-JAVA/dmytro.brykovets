@@ -11,14 +11,20 @@
 <?import javafx.geometry.Insets?>
 <GridPane fx:id="mainPane"
           alignment="center"
-          hgap="10" vgap="10"
           xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="ua.nure.brykovets.dmytro.usermanagement.gui.controller.BrowseController"
           prefHeight="400.0" prefWidth="600.0">
 
+    <HBox alignment="BASELINE_RIGHT" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
+        <TextField fx:id="firstNameSearchField"/>
+        <TextField fx:id="lastNameSearchField"/>
+        <Button text="%browse.search" onAction="#searchUsers"/>
+        <Button text="%browse.reset" onAction="#loadAllUsers"/>
+    </HBox>
+
     <TableView fx:id="usersTable"
-               GridPane.rowIndex="0"
+               GridPane.rowIndex="1"
                GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
         <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
         <columns>
@@ -41,8 +47,8 @@
         </columns>
     </TableView>
 
-    <HBox GridPane.rowIndex="1" spacing="20" alignment="CENTER_RIGHT">
-        <padding><Insets top="10" right="20" bottom="20" left="20"/></padding>
+    <HBox GridPane.rowIndex="2" spacing="20" alignment="CENTER_RIGHT">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
         <Button fx:id="addButton" text="%button.add" minWidth="80" onAction="#showAddUserPane"
                 style="-fx-background-color: rgb(73,156,84); -fx-text-fill: white;"/>

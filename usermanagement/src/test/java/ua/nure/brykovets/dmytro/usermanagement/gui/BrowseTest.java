@@ -135,7 +135,7 @@ public class BrowseTest extends ApplicationTest {
 //        User user = new User(1L, INITIAL_FIRST_NAME, INITIAL_LAST_NAME, LocalDate.parse(INITIAL_DATE_OF_BIRTH));
 //        userDao.create(user);
 //        BrowseController controller = loader.getController();
-//        controller.initUsersTable();
+//        controller.loadUsersTableData();
 //        verifyThat("#usersTable", hasNumRows(1));
 //
 //
